@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import ora from 'ora';
 import figlet from 'figlet';
+import net from 'net';
 
 // Display a welcome message
 console.log(
@@ -26,11 +27,20 @@ program.action(() => {
                 type: 'list',
                 name: 'choice',
                 message: "Choose an option:",
-                choices: ["Option 1", "Option 2", "Option 3"],
+                choices: ["Ping"],
             },
         ])
         .then((result) => {
             const spinner = ora(`Doing ${result.choice}...`).start(); // Start a spinner
+
+            if (result.choice === "Ping") {
+                const client = net.createConnection({ port: 6379 }, () => {
+                    console.log('Connected to Pack Rat server');
+                    client.write('Ping');
+                });
+
+                console.log(`Received data: ${client.toString()}`);
+            }
 
             setTimeout(() => {
                 spinner.succeed(chalk.green("Done!"));
