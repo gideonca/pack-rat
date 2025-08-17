@@ -1,0 +1,22 @@
+{
+  "name": "cli",
+  "version": "1.0.0",
+  "description": "CLI test application for Redis server",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "bin": {
+    "redis-cli": "./app.js"
+  },
+  "type": "module",
+  "author": "Cory Gideon",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.5.0",
+    "commander": "^14.0.0",
+    "figlet": "^1.8.2",
+    "inquirer": "^12.9.2",
+    "ora": "^8.2.0"
+  }
+}
