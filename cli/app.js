@@ -7,6 +7,8 @@ import ora from 'ora';
 import figlet from 'figlet';
 import net from 'net';
 
+// must run npm link for this to work
+
 // Display a welcome message
 console.log(
     chalk.blue(
@@ -39,7 +41,11 @@ program.action(() => {
                     client.write('Ping');
                 });
 
-                console.log(`Received data: ${client.toString()}`);
+                client.on('data', (data) => {
+                    console.log(`Received: ${data.toString()}`);
+                    client.end(); // Close the connection after receiving data
+                    return;
+                });
             }
 
             setTimeout(() => {
