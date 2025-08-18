@@ -1,13 +1,13 @@
 {
   "name": "cli",
   "version": "1.0.0",
-  "description": "CLI test application for Redis server",
+  "description": "CLI test application for Pack Rat server",
   "main": "app.js",
   "scripts": {
     "test": "test"
   },
   "bin": {
-    "redis-cli": "./app.js"
+    "pack": "./app.js"
   },
   "type": "module",
   "author": "Cory Gideon",
