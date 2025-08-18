@@ -13,9 +13,11 @@ const server = net.createServer((socket) => {
                 console.log('Pinging back to client');
                 socket.write('Pong');
                 break;
-            case 'echo':
+            case 'echo': //TODO: Need to figure out how to break the command out of the string and recognize echo
                 console.log('Echoing back the message');
-                socket.write(data); // Echo back the received data
+                var command = data.toString();
+                var message = command.substring(command.indexOf(' ') + 1); // Get the message after the command
+                socket.write(message); // Echo back the received data
                 break;
             default:
                 console.log('Unknown command');

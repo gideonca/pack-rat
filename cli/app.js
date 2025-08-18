@@ -69,8 +69,8 @@ program.action(() => {
                         return;
                     });
 
-                    console.log(chalk.yellow("Echo command is not yet implemented."));
-                    spinner.fail(chalk.red("Failed to echo message."));
+                    // console.log(chalk.yellow("Echo command is not yet implemented."));
+                    // spinner.fail(chalk.red("Failed to echo message."));
                     break;
                 default:
                     spinner.text = 'Processing...';
