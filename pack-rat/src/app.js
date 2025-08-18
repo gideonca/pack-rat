@@ -1,11 +1,11 @@
 const net = require('net');
 
 console.log('Starting Pack Rat server...');
-// TODO: Setup a command parser and clean up function calls
 
 const server = net.createServer((socket) => {
     console.log('Client connected');
     
+    // TODO: Setup a command parser and clean up function calls
     socket.on('data', (data) => {
         console.log(`Received data: ${data}`);
         switch (data.toString().toLowerCase().trim()) {
@@ -21,15 +21,6 @@ const server = net.createServer((socket) => {
                 console.log('Unknown command');
                 socket.write('Unknown command');
         }
-        // Here you would handle the incoming data and respond accordingly
-        // if (data.toString.toLowerCase().trim() === 'ping') {
-        //     console.log('Pong');
-        //     socket.write('Pong');
-        // } else {
-        //     console.log('Unknown command');
-        //     socket.write('Unknown command');
-        // }
-        // socket.write('Data received');
     });
 });
 
