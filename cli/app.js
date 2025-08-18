@@ -54,6 +54,9 @@ program.action(() => {
                     break;
                 case 'echo':
                     spinner.text = 'Echoing a message...';
+                    // TODO: Implement the ECHO command
+                    console.log(chalk.yellow("Echo command is not yet implemented."));
+                    spinner.fail(chalk.red("Failed to echo message."));
                     break;
                 default:
                     spinner.text = 'Processing...';
@@ -62,8 +65,6 @@ program.action(() => {
             setTimeout(() => {
                 spinner.succeed(chalk.green("Done!"));
             }, 3000);
-
-            //console.log(chalk.green(`Hello, ${answers.name}!`));
         });
 });
 
