@@ -7,7 +7,7 @@ import ora from 'ora';
 import figlet from 'figlet';
 import net from 'net';
 
-// must run npm link for this to work
+// must run npm link for the pack command to run
 
 // Display a welcome message
 console.log(
@@ -29,23 +29,34 @@ program.action(() => {
                 type: 'list',
                 name: 'choice',
                 message: "Choose an option:",
-                choices: ["Ping"],
+                choices: ["Ping", "Echo"],
             },
         ])
         .then((result) => {
             const spinner = ora(`Doing ${result.choice}...`).start(); // Start a spinner
 
-            if (result.choice === "Ping") {
-                const client = net.createConnection({ port: 6379 }, () => {
-                    console.log('Connected to Pack Rat server');
-                    client.write('Ping');
-                });
+            // TODO: Move this to a command parser and clean up function calls
+            switch(result.choice.toString().toLowerCase()) {
+                case 'ping':
+                    spinner.text = 'Pinging the server...'; 
 
-                client.on('data', (data) => {
-                    console.log(`Received: ${data.toString()}`);
-                    client.end(); // Close the connection after receiving data
-                    return;
-                });
+                    const client = net.createConnection({ port: 6379 }, () => {
+                        console.log('Connected to Pack Rat server');
+                        client.write('Ping');
+                    });
+
+                    client.on('data', (data) => {
+                        console.log(`Received: ${data.toString()}`);
+                        client.end(); // Close the connection after receiving data
+                        return;
+                    });
+
+                    break;
+                case 'echo':
+                    spinner.text = 'Echoing a message...';
+                    break;
+                default:
+                    spinner.text = 'Processing...';
             }
 
             setTimeout(() => {
