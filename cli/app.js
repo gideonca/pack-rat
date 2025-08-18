@@ -35,17 +35,22 @@ program.action(() => {
         .then((result) => {
             const spinner = ora(`Doing ${result.choice}...`).start(); // Start a spinner
 
-            // TODO: Move this to a command parser and clean up function calls
+            const client = net.createConnection({ port: 6379 }, () => {
+                console.log('Connected to Pack Rat server');
+            });
+
             switch(result.choice.toString().toLowerCase()) {
                 case 'ping':
                     spinner.text = 'Pinging the server...'; 
 
-                    const client = net.createConnection({ port: 6379 }, () => {
-                        console.log('Connected to Pack Rat server');
-                        client.write('Ping');
+                    client.write('Ping'); // Send the PING command to the server
+
+                    client.on('error', (err) => {   // Handle connection errors
+                        spinner.fail(chalk.red(`Error: ${err.message}`));
+                        console.error(err);
                     });
 
-                    client.on('data', (data) => {
+                    client.on('data', (data) => { // Handle incoming data from the server
                         console.log(`Received: ${data.toString()}`);
                         client.end(); // Close the connection after receiving data
                         return;
@@ -55,6 +60,9 @@ program.action(() => {
                 case 'echo':
                     spinner.text = 'Echoing a message...';
                     // TODO: Implement the ECHO command
+
+                    client.write('Echo hello world'); // Send the ECHO command to the server
+
                     console.log(chalk.yellow("Echo command is not yet implemented."));
                     spinner.fail(chalk.red("Failed to echo message."));
                     break;

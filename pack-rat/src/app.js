@@ -1,6 +1,8 @@
 const net = require('net');
 
 console.log('Starting Pack Rat server...');
+// TODO: Setup a command parser and clean up function calls
+
 const server = net.createServer((socket) => {
     console.log('Client connected');
     
