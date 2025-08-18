@@ -63,6 +63,12 @@ program.action(() => {
 
                     client.write('Echo hello world'); // Send the ECHO command to the server
 
+                    client.on('data', (data) => { // Handle incoming data from the server
+                        console.log(`Received: ${data.toString()}`);
+                        client.end(); // Close the connection after receiving data
+                        return;
+                    });
+
                     console.log(chalk.yellow("Echo command is not yet implemented."));
                     spinner.fail(chalk.red("Failed to echo message."));
                     break;

@@ -8,15 +8,28 @@ const server = net.createServer((socket) => {
     
     socket.on('data', (data) => {
         console.log(`Received data: ${data}`);
-        // Here you would handle the incoming data and respond accordingly
-        if (data.toString().trim() === 'Ping') {
-            console.log('Pong');
-            socket.write('Pong');
-        } else {
-            console.log('Unknown command');
-            socket.write('Unknown command');
+        switch (data.toString().toLowerCase().trim()) {
+            case 'ping':
+                console.log('Pinging back to client');
+                socket.write('Pong');
+                break;
+            case 'echo':
+                console.log('Echoing back the message');
+                socket.write(data); // Echo back the received data
+                break;
+            default:
+                console.log('Unknown command');
+                socket.write('Unknown command');
         }
-        socket.write('Data received');
+        // Here you would handle the incoming data and respond accordingly
+        // if (data.toString.toLowerCase().trim() === 'ping') {
+        //     console.log('Pong');
+        //     socket.write('Pong');
+        // } else {
+        //     console.log('Unknown command');
+        //     socket.write('Unknown command');
+        // }
+        // socket.write('Data received');
     });
 });
 
